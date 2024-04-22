@@ -14,7 +14,7 @@ Write-Host @"
 
 "@ -ForegroundColor Magenta
 
-Write-Host "Made by MinikAyicuhV5 for MDRP`n"
+Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
 
 $system32Path = "$env:SystemRoot\System32"
 
