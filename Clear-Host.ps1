@@ -9,6 +9,10 @@ Write-Host @"
 ██║  ██╗███████╗██║ ╚████║██║ ╚████║███████╗██████╔╝   ██║   
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═════╝    ╚═╝   
                                                              [0m
+"@ -ForegroundColor Magenta
+
+Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
+
 Write-Host @"
 Made by Carpel for NarcoCity`n
 
@@ -24,10 +28,6 @@ $AppSwitchedPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Fea
     } |
     Sort-Object LastWriteTime |
     Out-GridView -PassThru -Title 'Appswitch Script by Carpel'
-
-"@ -ForegroundColor Magenta
-
-Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
 
 # Define paths for Desktop and Downloads directories
 $desktopPath = [Environment]::GetFolderPath("Desktop")
