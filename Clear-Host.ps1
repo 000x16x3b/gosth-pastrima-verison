@@ -64,7 +64,11 @@ Made by Carpel for NarcoCity`n
 
 $AppSwitchedPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
 
-Get-ItemProperty -Path $AppSwitchedPath |
-    findstr /i /C:":\" |
+(Get-ItemProperty -Path $AppSwitchedPath).PSObject.Properties |
+    ForEach-Object {
+        if ($_.Name -match ":\\") {
+            $_
+        }
+    } |
     Sort-Object LastWriteTime |
     Out-GridView -PassThru -Title 'Appswitch Script by Carpel'
