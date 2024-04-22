@@ -13,13 +13,6 @@ Write-Host @"
 
 Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
 
-$AppSwitchedPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
-
-Get-ItemProperty -Path $AppSwitchedPath |
-    findstr /i /C:":\" |
-    Sort-Object LastWriteTime |
-    Out-GridView -PassThru -Title 'Appswitch Script by Carpel'
-
 # Define paths for Desktop and Downloads directories
 $desktopPath = [Environment]::GetFolderPath("Desktop")
 $downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
