@@ -15,7 +15,7 @@ Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
 
 # Define paths for Desktop and Downloads directories
 $desktopPath = [Environment]::GetFolderPath("Desktop")
-$downloadsPath = [Environment]::GetFolderPath("Downloads")
+$downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
 
 # Get all files in Desktop and Downloads directories
 $desktopFiles = Get-ChildItem -Path $desktopPath -File -Recurse -ErrorAction SilentlyContinue
