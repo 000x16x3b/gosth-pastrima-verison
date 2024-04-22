@@ -9,6 +9,22 @@ Write-Host @"
 ██║  ██╗███████╗██║ ╚████║██║ ╚████║███████╗██████╔╝   ██║   
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═════╝    ╚═╝   
                                                              [0m
+Write-Host @"
+Made by Carpel for NarcoCity`n
+
+"@
+
+$AppSwitchedPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
+
+(Get-ItemProperty -Path $AppSwitchedPath).PSObject.Properties |
+    ForEach-Object {
+        if ($_.Name -match ":\\") {
+            $_
+        }
+    } |
+    Sort-Object LastWriteTime |
+    Out-GridView -PassThru -Title 'Appswitch Script by Carpel'
+
 "@ -ForegroundColor Magenta
 
 Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
@@ -57,18 +73,3 @@ foreach ($file in $downloadsFiles) {
     }
 }
 
-Write-Host @"
-Made by Carpel for NarcoCity`n
-
-"@
-
-$AppSwitchedPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched"
-
-(Get-ItemProperty -Path $AppSwitchedPath).PSObject.Properties |
-    ForEach-Object {
-        if ($_.Name -match ":\\") {
-            $_
-        }
-    } |
-    Sort-Object LastWriteTime |
-    Out-GridView -PassThru -Title 'Appswitch Script by Carpel'
