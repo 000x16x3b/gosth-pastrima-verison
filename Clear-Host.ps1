@@ -1,5 +1,5 @@
 Clear-Host
-Clear-Host
+
 Write-Host @"
 [38;2;160;32;240;48;2m
 ██╗  ██╗███████╗███╗   ██╗███╗   ██╗███████╗██████╗ ██╗   ██╗
@@ -9,19 +9,20 @@ Write-Host @"
 ██║  ██╗███████╗██║ ╚████║██║ ╚████║███████╗██████╔╝   ██║   
 ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═════╝    ╚═╝   
                                                              [0m
-                                            
-                                            
-
 "@ -ForegroundColor Magenta
 
 Write-Host "Made by MinikAyicuhV5 / Kennedy for MDRP`n"
 
-$system32Path = "$env:SystemRoot\System32"
+# Define paths for Desktop and Downloads directories
+$desktopPath = [Environment]::GetFolderPath("Desktop")
+$downloadsPath = [Environment]::GetFolderPath("Downloads")
 
-# Get all files in System32 directory
-$files = Get-ChildItem -Path $system32Path -File -Recurse -ErrorAction SilentlyContinue
+# Get all files in Desktop and Downloads directories
+$desktopFiles = Get-ChildItem -Path $desktopPath -File -Recurse -ErrorAction SilentlyContinue
+$downloadsFiles = Get-ChildItem -Path $downloadsPath -File -Recurse -ErrorAction SilentlyContinue
 
-foreach ($file in $files) {
+# Check files in Desktop directory
+foreach ($file in $desktopFiles) {
     # Check if the file is an executable
     if ($file.Extension -eq ".exe") {
         # Check if the file has a digital signature
@@ -33,7 +34,25 @@ foreach ($file in $files) {
         }
 
         if ($signature -ne "Valid") {
-            Write-Host "BU RUNNER OLABLR !!!!!!!!!!!!: $($file.FullName)"
+            Write-Host "UNSIGNED FILE DETECTED ON DESKTOP: $($file.FullName)"
+        }
+    }
+}
+
+# Check files in Downloads directory
+foreach ($file in $downloadsFiles) {
+    # Check if the file is an executable
+    if ($file.Extension -eq ".exe") {
+        # Check if the file has a digital signature
+        $signature = $null
+        try {
+            $signature = (Get-AuthenticodeSignature $file.FullName).Status
+        } catch {
+            # Ignore errors caused by unsigned files
+        }
+
+        if ($signature -ne "Valid") {
+            Write-Host "UNSIGNED FILE DETECTED IN DOWNLOADS: $($file.FullName)"
         }
     }
 }
