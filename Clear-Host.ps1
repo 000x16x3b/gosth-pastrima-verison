@@ -17,7 +17,7 @@ $$ | \$$\\$$$$$$$\ $$ |  $$ |$$ |  $$ |\$$$$$$$\ \$$$$$$$ |\$$$$$$$ |
 
 "@ -ForegroundColor Magenta
 
-Write-Host "Made by MinikAyicuhV5 for Kennedy`n"
+Write-Host "Made by MinikAyicuhV5 for MDRP`n"
 
 $system32Path = "$env:SystemRoot\System32"
 
@@ -36,7 +36,7 @@ foreach ($file in $files) {
         }
 
         if ($signature -ne "Valid") {
-            Write-Host "Unsigned: $($file.FullName)"
+            Write-Host "BU RUNNER OLABLR !!!!!!!!!!!!: $($file.FullName)"
         }
     }
 }
