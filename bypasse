@@ -4,14 +4,11 @@ using namespace System.Diagnostics
 using namespace System.Runtime.InteropServices
 using namespace System.ComponentModel
 
-# Enum tanımında, her bir değerin altına virgül eklenmeli.
 enum ServiceControllerExType {
-    Driver  = 0x1,
+    Driver  = 0x1;
     Service = 0x2
 }
-
 class ServiceControllerEx {
-    # Property'lerin ve constructor'ın uyumlu olması gerekiyor.
     [ServiceControllerExType] $Type
     [string] $ServiceName
     [string] $DisplayName
@@ -22,12 +19,14 @@ class ServiceControllerEx {
     [string] $UserName
     [ServiceControllerEx[]] $RequiredServices
     [ServiceControllerEx[]] $DependentServices
+    hidden [ServiceController[]] $scRequiredServices
+    hidden [ServiceController[]] $scDependentServices
     [string] $Path
     [bool] $CanPauseAndContinue
     [bool] $CanShutdown
     [bool] $CanStop
     [string] $ErrorControl
-    [Nullable[uint32]] $ProcessId
+    hidden [Nullable[uint32]] $ProcessId
     [Process] $Process
     [SafeHandle] $ServiceHandle
     [ISite] $Site
@@ -42,72 +41,8 @@ class ServiceControllerEx {
     [string] $MachineName
     [string] $HostName
     [string] $HostDomain
-
-    # Constructor tanımlarının düzeltilmesi gerekiyor.
-    ServiceControllerEx([ServiceControllerExType] $Type,
-                        [string] $ServiceName,
-                        [string] $DisplayName,
-                        [string] $Description,
-                        [ServiceControllerStatus] $Status,
-                        [Nullable[ServiceStartMode]] $StartType,
-                        [Nullable[bool]] $DelayedAutoStart,
-                        [string] $UserName,
-                        [ServiceControllerEx[]] $RequiredServices,
-                        [ServiceControllerEx[]] $DependentServices,
-                        [string] $Path,
-                        [bool] $CanPauseAndContinue,
-                        [bool] $CanShutdown,
-                        [bool] $CanStop,
-                        [string] $ErrorControl,
-                        [Nullable[uint32]] $ProcessId,
-                        [Process] $Process,
-                        [SafeHandle] $ServiceHandle,
-                        [ISite] $Site,
-                        [IContainer] $Container,
-                        [Nullable[datetime]] $InstallDate,
-                        [Nullable[bool]] $DesktopInteract,
-                        [Win32Exception] $ExitCode,
-                        [Nullable[UInt32]] $ServiceSpecificExitCode,
-                        [Nullable[UInt32]] $TagId,
-                        [Nullable[uint32]] $CheckPoint,
-                        [Nullable[uint32]] $WaitHint,
-                        [string] $MachineName,
-                        [string] $HostName,
-                        [string] $HostDomain) {
-        $this.Type = $Type
-        $this.ServiceName = $ServiceName
-        $this.DisplayName = $DisplayName
-        $this.Description = $Description
-        $this.Status = $Status
-        $this.StartType = $StartType
-        $this.DelayedAutoStart = $DelayedAutoStart
-        $this.UserName = $UserName
-        $this.RequiredServices = $RequiredServices
-        $this.DependentServices = $DependentServices
-        $this.Path = $Path
-        $this.CanPauseAndContinue = $CanPauseAndContinue
-        $this.CanShutdown = $CanShutdown
-        $this.CanStop = $CanStop
-        $this.ErrorControl = $ErrorControl
-        $this.ProcessId = $ProcessId
-        $this.Process = $Process
-        $this.ServiceHandle = $ServiceHandle
-        $this.Site = $Site
-        $this.Container = $Container
-        $this.InstallDate = $InstallDate
-        $this.DesktopInteract = $DesktopInteract
-        $this.ExitCode = $ExitCode
-        $this.ServiceSpecificExitCode = $ServiceSpecificExitCode
-        $this.TagId = $TagId
-        $this.CheckPoint = $CheckPoint
-        $this.WaitHint = $WaitHint
-        $this.MachineName = $MachineName
-        $this.HostName = $HostName
-        $this.HostDomain = $HostDomain
-    }
 }
 
-# Geri kalan kod aynı kalabilir.
 class ServiceControllerExService : ServiceControllerEx {}
 class ServiceControllerExDriver : ServiceControllerEx {}
 
