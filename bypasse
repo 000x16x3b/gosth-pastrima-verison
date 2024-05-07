@@ -68,7 +68,9 @@ function Get-ServiceEx {
 
         [Parameter()]
         [ServiceControllerExType[]]
-        $Type = ('Service', 'Driver'),
+        $Type = @('Service', 'Driver'),
 
         [Parameter()]
-        [switch
+        [switch]
+    )
+}
