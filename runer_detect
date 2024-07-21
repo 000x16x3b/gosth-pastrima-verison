@@ -7,26 +7,25 @@ $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
 $paths = @($system32Path, $desktopPath, $downloadsPath)
 
 $files = foreach ($path in $paths) {
-    Get-ChildItem -Path $path -File -Recurse -ErrorAction SilentlyContinue
+    Get-ChildItem -Path $path -File -Recurse -ErrorAction SilentlyContinue -Include *.exe
 }
 
 $results = @()
 
 foreach ($file in $files) {
-    if ($file.Extension -eq ".exe") {
-        try {
-            $signature = (Get-AuthenticodeSignature $file.FullName).Status
-        } catch {
-            $signature = "Unknown"
-        }
+    try {
+        $signature = (Get-AuthenticodeSignature $file.FullName).Status
+    } catch {
+        $signature = "Unknown"
+    }
 
-        if ($signature -ne "Valid") {
-            $results += [PSCustomObject]@{
-                FilePath = $file.FullName
-                SignatureStatus = $signature
-            }
+    if ($signature -ne "Valid") {
+        $results += [PSCustomObject]@{
+            FilePath = $file.FullName
+            SignatureStatus = $signature
         }
     }
 }
 
+# Display results in a grid view
 $results | Out-GridView -Title "Unsigned / Unknown Executables"
