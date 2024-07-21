@@ -12,30 +12,33 @@ Write-Host @"
                                             
 "@ -ForegroundColor Magenta
 
-Write-Host "Made By MinikAyicuhV5 / Kennedy For MDRP"
-
 $system32Path = "$env:SystemRoot\System32"
 $desktopPath = [Environment]::GetFolderPath("Desktop")
-$downloadsPath = [Environment]::GetFolderPath("MyDocuments")
+$downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
 
 $paths = @($system32Path, $desktopPath, $downloadsPath)
+
 $files = foreach ($path in $paths) {
     Get-ChildItem -Path $path -File -Recurse -ErrorAction SilentlyContinue
 }
 
+$results = @()
+
 foreach ($file in $files) {
-
     if ($file.Extension -eq ".exe") {
-
-        $signature = $null
         try {
             $signature = (Get-AuthenticodeSignature $file.FullName).Status
         } catch {
-
+            $signature = "Unknown"
         }
 
         if ($signature -ne "Valid") {
-            Write-Host "Unsigned: $($file.FullName)"
+            $results += [PSCustomObject]@{
+                FilePath = $file.FullName
+                SignatureStatus = $signature
+            }
         }
     }
 }
+
+$results | Out-GridView -Title "Unsigned / Unknown Executables"
