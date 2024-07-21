@@ -6,9 +6,7 @@ $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
 
 $paths = @($system32Path, $desktopPath, $downloadsPath)
 
-$files = foreach ($path in $paths) {
-    Get-ChildItem -Path $path -File -Recurse -ErrorAction SilentlyContinue -Include *.exe
-}
+$files = Get-ChildItem -Path $paths -File -Recurse -ErrorAction SilentlyContinue -Filter *.exe
 
 $results = @()
 
@@ -27,5 +25,8 @@ foreach ($file in $files) {
     }
 }
 
-# Display results in a grid view
 $results | Out-GridView -Title "Unsigned / Unknown Executables"
+
+while ($true) {
+    Start-Sleep -Seconds 1
+}
