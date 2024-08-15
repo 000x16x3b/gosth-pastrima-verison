@@ -3,8 +3,9 @@ Clear-Host
 $system32Path = "$env:SystemRoot\System32"
 $desktopPath = [Environment]::GetFolderPath("Desktop")
 $downloadsPath = [System.IO.Path]::Combine($env:USERPROFILE, 'Downloads')
+$wtfastPath = "C:\Program Files (x86)\WTFast"
 
-$paths = @($system32Path, $desktopPath, $downloadsPath)
+$paths = @($system32Path, $desktopPath, $downloadsPath, $wtfastPath)
 
 $files = Get-ChildItem -Path $paths -File -Recurse -ErrorAction SilentlyContinue -Filter *.exe
 
